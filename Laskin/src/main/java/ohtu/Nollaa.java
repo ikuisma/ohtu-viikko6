@@ -2,18 +2,31 @@ package ohtu;
 
 import javax.swing.*;
 
-public class Nollaa extends Komento {
+public class Nollaa implements Komento {
 
     private Sovelluslogiikka sovelluslogiikka;
+    private JTextField tuloskentta;
+    private JTextField syotekentta;
+    private int vanhaTulos;
 
     public Nollaa(Sovelluslogiikka sovelluslogiikka, JTextField tuloskentta, JTextField syotekentta) {
-        super(tuloskentta, syotekentta);
         this.sovelluslogiikka = sovelluslogiikka;
+        this.tuloskentta = tuloskentta;
+        this.syotekentta = syotekentta;
     }
 
     @Override
-    public int operoi(int syote) {
+    public void suorita() {
+        vanhaTulos = sovelluslogiikka.tulos();
         sovelluslogiikka.nollaa();
-        return sovelluslogiikka.tulos();
+        tuloskentta.setText("" + sovelluslogiikka.tulos());
+        syotekentta.setText("");
+    }
+
+    @Override
+    public void peru() {
+        sovelluslogiikka.plus(vanhaTulos);
+        tuloskentta.setText("" + sovelluslogiikka.tulos());
+        syotekentta.setText("");
     }
 }

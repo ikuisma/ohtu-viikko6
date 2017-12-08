@@ -8,23 +8,15 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
  
 public class Tapahtumankuuntelija implements ActionListener {
-    private JButton plus;
-    private JButton miinus;
     private JButton nollaa;
     private JButton undo;
-    private JTextField tuloskentta;
-    private JTextField syotekentta;
     private Sovelluslogiikka sovellus;
     private Map<JButton, Komento> komennot;
     private Komento edellinen;
  
     public Tapahtumankuuntelija(JButton plus, JButton miinus, JButton nollaa, JButton undo, JTextField tuloskentta, JTextField syotekentta) {
-        this.plus = plus;
-        this.miinus = miinus;
         this.nollaa = nollaa;
         this.undo = undo;
-        this.tuloskentta = tuloskentta;
-        this.syotekentta = syotekentta;
         this.sovellus = new Sovelluslogiikka();
         komennot = new HashMap<>();
         komennot.put(plus, new Summa(sovellus, tuloskentta, syotekentta));
@@ -37,11 +29,10 @@ public class Tapahtumankuuntelija implements ActionListener {
 
         Komento komento = komennot.get(ae.getSource());
 
-        if  (komento!=null) {
+        if (komento!=null) {
             komento.suorita();
             edellinen = komento;
         } else {
-            // toiminto oli undo
             edellinen.peru();
             edellinen = null;
         }
